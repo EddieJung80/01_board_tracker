@@ -2,7 +2,8 @@ import os
 import re
 import warnings
 from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from .schema import BoardStatus # 이전에 정의한 Pydantic 모델
@@ -12,27 +13,21 @@ from .schema import BoardStatus # 이전에 정의한 Pydantic 모델
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
 
-class DartLLMParser:
+class DartLLMParser_local:
     def __init__(self):
         # ChatOpenAI 초기화
-        self.llm = ChatOpenAI(
-            temperature=0,
-            model_name="openai/gpt-4.1",  # OpenRouter에서 제공하는 GPT-4.1 모델
-            api_key=os.getenv("OPENROUTER_API_KEY"),  # OpenRouter API 키
-            base_url=os.getenv("OPENROUTER_BASE_URL"),  # OpenRouter API URL
-            )
+        # self.llm = ChatOpenAI(
+        #     temperature=0,
+        #     model_name="openai/gpt-4.1",  # OpenRouter에서 제공하는 GPT-4.1 모델
+        #     api_key=os.getenv("OPENROUTER_API_KEY"),  # OpenRouter API 키
+        #     base_url=os.getenv("OPENROUTER_BASE_URL"),  # OpenRouter API URL
+        #     )
         
-        # opensource 부분 추가(추후 개발)
-        #########################
-        #########################
-        #########################
-        #########################
-        #########################
-        #########################
-        #########################
-        #########################
-        #########################
-        #########################
+        self.llm = ChatOllama(
+            model="exaone3.5:7.8b", 
+            temperature=0,
+            format="json" # Ollama에게 JSON 출력을 강제하는 옵션
+        )
 
 
 
@@ -68,13 +63,13 @@ class DartLLMParser:
                 content_parts.append(text)
             
             # 다음 섹션 번호(예: 2. 감사제도)가 보이면 중단 (정규표현식)
-            # if re.match(r"^[2-9]\.\s", text): 
-            #     break
+            if re.match(r"^[2-9]\.\s", text): 
+                break
             
             # 너무 길어지면 토큰 제한을 위해 중단
-            if len(" ".join(content_parts)) > 5000:
+            if len(" ".join(content_parts)) > 10000:
                 break
-
+                
         return "\n".join(content_parts)
 
     def parse_board_info(self, html_content, corp_name, year):

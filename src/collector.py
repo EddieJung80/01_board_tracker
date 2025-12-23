@@ -19,7 +19,8 @@ class DartCollector:
                     # 2. '사업보고서'라는 단어가 포함되어 있고, 해당 연도 결산 보고서인 것들만 추출
                     # 정규표현식 설명: .*(정정)?.*사업보고서.*연도\.12.*
                     # 즉, 앞에 [기재정정]이 붙든 뒤에 날짜가 붙든 '사업보고서'와 '연도.12'가 들어있으면 찾습니다.
-                    pattern = rf"사업보고서 \({year}\.12\)"
+                    pattern = rf"반기보고서 \({year}\.06\)" # 반기보고서인 경우 (당해년도 이사현황을 추출하려면 반기보고서를 활용)
+                    # pattern = rf"사업보고서 \({year}\.12\)" # 사업보고서인 경우
                     target = res[res['report_nm'].str.contains(pattern, na=False)]
                     
                     if not target.empty:
