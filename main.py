@@ -33,7 +33,6 @@ def main():
                         '연도': year,
                         '성명': d.get('name'),
                         '직위': d.get('position'),
-                        '회계 및 재무 전문가': d.get('financial_expert', ''),
                     })
                 continue
 
@@ -52,7 +51,6 @@ def main():
                         '연도': year,
                         '성명': d.get('name'),
                         '직위': d.get('position'),
-                        '회계 및 재무 전문가': d.get('financial_expert', ''),
                     })
                 print(f"  - {len(directors)}명 추출 성공")
 
