@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \":*)",
+      "Bash(npm uninstall:*)",
+      "Bash(git config:*)",
+      "Bash(uv sync:*)",
+      "Bash(grep -E \"\\\\.py$|\\\\.md$|\\\\.toml$|\\\\.lock$\")",
+      "Bash(find /c/work/01_board_tracker/board-tracker-web/src -type f \\\\\\(-name *.ts -o -name *.tsx \\\\\\))"
+    ],
+    "additionalDirectories": [
+      "c:\\work\\01_board_tracker\\board-tracker-web\\docs\\superpowers"
+    ]
+  }
+}

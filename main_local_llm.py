@@ -35,18 +35,18 @@ def main():
                                     '연도': year,
                                     '성명': d.get('name'),
                                     '직위': d.get('position'),
-                                    '등기여부': d.get('is_registered', '등기'),
-                                    '생년월일': d.get('birth_date', '-')
+                                    '회계 및 재무 전문가': d.get('financial_expert', ''),
                                 })
                             print(f"  - {len(parsed_result['directors'])}명 추출 성공")
                 
             time.sleep(1) # API 속도 제한 및 비용 고려
 
 
-    # 최종 엑셀 저장
+    # 최종 저장
     df = pd.DataFrame(all_rows)
     df.to_excel("output/final_board_status.xlsx", index=False)
-    print(f"결과 저장 완료: output/final_board_status.xlsx")
+    df.to_csv("output/final_board_status.csv", index=False, encoding="utf-8-sig")
+    print(f"결과 저장 완료: output/final_board_status.xlsx / .csv")
 
 if __name__ == "__main__":
     main()

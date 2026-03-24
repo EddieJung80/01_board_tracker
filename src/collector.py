@@ -12,8 +12,10 @@ class DartCollector:
         
         for year in range(start_year, end_year + 1):
             try:
-                # 1. 검색 기간을 다음 해 6월까지 더 넉넉히 잡습니다 (정정 보고서는 늦게 나올 수 있음)
-                res = self.dart.list(stock_code, start=f"{year}-01-01", end=f"{year+1}-12-31", kind='A')
+                # 1. 검색 기간을 다음 해 1년으로 (정정 보고서는 늦게 나올 수 있음)
+                res = self.dart.list(stock_code, start=f"{year}-01-01", end=f"{year}-12-31", kind='A')
+
+                print(res)
                 
                 if res is not None and not res.empty:
                     # 2. '사업보고서'라는 단어가 포함되어 있고, 해당 연도 결산 보고서인 것들만 추출

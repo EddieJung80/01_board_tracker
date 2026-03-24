@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \":*)",
+      "Read(//c/Users/SKTelecom/.claude/projects/**)",
+      "Bash(npx tsc:*)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(git add:*)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\SKTelecom\\.claude\\projects\\c--work-01-board-tracker"
+    ]
+  }
+}
